@@ -27,7 +27,7 @@ export const UserFactory = (
       type: DataTypes.STRING,
       validate: {
         isAlphanumeric: {
-          args: true,
+          //args: true,
           msg: "The username can only contain letters and numbers"
         },
         len: {
@@ -41,7 +41,7 @@ export const UserFactory = (
       unique: true,
       validate: {
         isEmail: {
-          args: true,
+          //args: true,
           msg: "Invalid email"
         }
       }

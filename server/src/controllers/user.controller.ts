@@ -18,6 +18,12 @@ import {
   FACEBOOK_CLIENT_SECRET
 } from "../utils/secrets";
 
+declare module 'express-session' {
+  export interface SessionData {
+    user: { [key: string]: any };
+  }
+}
+
 const userSummary = user => {
   const summary = {
     id: user.id,
@@ -148,6 +154,7 @@ export default {
   signInOauth: async (req: Request, res: Response) => {
     try {
       const credentials = req.body;
+      console.log(credentials);
       if (!credentials.username || !credentials.email) {
         return res.status(403).send({
           meta: {
@@ -198,9 +205,11 @@ export default {
           );
         }
       }
+     console.log(GOOGLE_CLIENT_ID.toString());
 
       /* oauth user exist, sign in user */
       if (isEmailRegistered && isEmailRegistered.provider) {
+        console.log(credentials.access_token);
         let isOAuthVerified = false;
         /* validate google access token*/
         if (credentials.provider === "google") {
@@ -208,10 +217,12 @@ export default {
             credentials.access_token
           }`;
           const response = await axios.get(googleAcessTokenVerifyUrl);
+          console.log(response.data);
           if (
             response.data.issued_to.toString() === GOOGLE_CLIENT_ID.toString()
           ) {
             isOAuthVerified = true;
+            console.log(response.data.issued_to.toString());
           }
         }
 

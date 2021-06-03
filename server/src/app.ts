@@ -26,7 +26,8 @@ const io = socketIo(httpServer);
 /* development build, use logger & simulateLatency */
 if (NODE_ENV === "development") {
   app.use(logger("dev"));
-  app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+  app.use(cors({ credentials: true, origin: ["http://localhost:3000", "http://localhost:3001"]   }));
+  //app.use(cors({ credentials: true, origin: *  }));
 
   // to simulate latency of 50ms - 1000ms
   // app.use(simulateLatency(50, 1000));

@@ -24,6 +24,7 @@ class RouterContainer extends React.Component {
 
   render() {
     const { hasError } = this.state;
+    console.log(this.state);
     return <Router hasError={hasError} />;
   }
 }
